@@ -1,41 +1,106 @@
+/* Fonts & reset */
 body {
-  font-family: Arial, sans-serif;
-  background: #121212;
-  color: #f4f4f4;
   margin: 0;
-  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #0d0d0d;
+  color: #f5f5f5;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   min-height: 100vh;
 }
 
-.container {
-  max-width: 700px;
-  padding: 20px;
-  text-align: center;
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: #1a1a1a;
+  border-bottom: 1px solid #333;
+}
+
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .logo {
-  width: 100px;
-  margin-bottom: 20px;
+  width: 40px;
 }
 
-nav {
-  margin-top: 20px;
+header h1 {
+  font-size: 1.3rem;
+  margin: 0;
 }
 
 nav a {
-  margin: 0 10px;
+  margin-left: 20px;
   color: #ffcc00;
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 nav a:hover {
   text-decoration: underline;
 }
 
-a {
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.hero h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: #ccc;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Content Pages */
+.content {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 0 20px;
+}
+
+.content h2 {
+  margin-bottom: 20px;
+}
+
+.content h3 {
+  margin-top: 30px;
+  margin-bottom: 10px;
   color: #ffcc00;
+}
+
+.content p, .content ul {
+  line-height: 1.6;
+  color: #ddd;
+}
+
+.content a {
+  color: #ffcc00;
+  text-decoration: none;
+}
+
+.content a:hover {
+  text-decoration: underline;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #1a1a1a;
+  margin-top: auto;
+  border-top: 1px solid #333;
+  font-size: 0.9rem;
+  color: #888;
 }
