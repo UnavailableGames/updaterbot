@@ -24,6 +24,10 @@ body {
   margin-bottom: 1rem;
 }
 
+.circle {
+  border-radius: 50%;
+}
+
 h1 {
   font-size: 3rem;
   margin-bottom: 0.5rem;
@@ -38,6 +42,7 @@ h1 {
 .cta-buttons {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 1rem;
 }
 
@@ -178,3 +183,54 @@ footer {
   color: #888;
 }
 
+/* Hosting mit Herz page */
+.hmh-body {
+  background: #0f0f11;
+  color: #eaeaea;
+}
+
+.hmh-hero {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #5b4b8a, #3d2f5e);
+}
+
+.hmh-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  padding: 3rem 2rem;
+}
+
+.hmh-card {
+  background: #1a1a1d;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.hmh-footer {
+  text-align: center;
+  padding: 2rem;
+  background: #121214;
+  color: #aaa;
+}
+
+.btn.hmh-primary {
+  background: #5b4b8a;
+  color: #fff;
+}
+
+.btn.hmh-primary:hover {
+  background: #48396f;
+}
+
+.btn.hmh-secondary {
+  background: #222;
+  color: #fff;
+}
+
+.btn.hmh-secondary:hover {
+  background: #333;
+}
