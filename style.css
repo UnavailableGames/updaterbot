@@ -183,17 +183,56 @@ footer {
   color: #888;
 }
 
-/* Hosting mit Herz Page */
-.hmh-hero {
-  text-align: center;
-  padding: 4rem 2rem;
-  background: linear-gradient(135deg, #2a2a2d, #1a1a1d);
-}
-
+/* Hosting mit Herz page */
 .hmh-body {
   background: #0f0f11;
   color: #eaeaea;
-  font-family: "Inter", Arial, sans-serif;
+}
+
+.hmh-hero {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #5b4b8a, #3d2f5e);
+}
+
+.hmh-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  padding: 3rem 2rem;
+}
+
+.hmh-card {
+  background: #1a1a1d;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.hmh-footer {
+  text-align: center;
+  padding: 2rem;
+  background: #121214;
+  color: #aaa;
+}
+
+.btn.hmh-primary {
+  background: #5b4b8a;
+  color: #fff;
+}
+
+.btn.hmh-primary:hover {
+  background: #48396f;
+}
+
+.btn.hmh-secondary {
+  background: #222;
+  color: #fff;
+}
+
+.btn.hmh-secondary:hover {
+  background: #333;
 }
 
 .hmh-about {
@@ -206,32 +245,3 @@ footer {
 .hmh-about h2 {
   text-align: center;  /* force the heading to center */
 }
-
-
-.hmh-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 2rem;
-}
-
-.hmh-card {
-  background: #1a1a1d;
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  text-align: left;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.hmh-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-}
-
-.hmh-footer {
-  text-align: center;
-  padding: 2rem;
-  background: #121214;
-  color: #aaa;
-}
-
