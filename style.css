@@ -199,12 +199,14 @@ footer {
 .hmh-about {
   padding: 4rem 2rem;
   text-align: center;
+  max-width: 1000px;   /* keep content centered */
+  margin: 0 auto;      /* center the section horizontally */
 }
 
 .hmh-about h2 {
-  font-size: 2rem;
-  margin-bottom: 2rem;
+  text-align: center;  /* force the heading to center */
 }
+
 
 .hmh-grid {
   display: grid;
