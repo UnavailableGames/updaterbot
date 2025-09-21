@@ -245,3 +245,24 @@ footer {
 .hmh-about h2 {
   text-align: center;  /* force the heading to center */
 }
+
+/* Filters row for changelogs */
+.filters-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+.filters-row div {
+  display: flex;
+  flex-direction: column;
+  min-width: 150px;
+}
+.filters-row input, .filters-row select {
+  padding: 0.4rem 0.6rem;
+  border-radius: 5px;
+  border: 1px solid #333;
+  background: #1a1a1d;
+  color: #fff;
+}
