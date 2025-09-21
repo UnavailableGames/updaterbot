@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Updater Bot - Changelogs</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <img src="assets/logo.png" alt="Updater Bot Logo" class="logo circle">
+  <h1>Updater Bot Changelogs</h1>
+  <p class="tagline">All updates and patch notes — newest first.</p>
+</header>
+
+<section class="bot-changelogs">
+  <div class="filters-row">
+    <div>
+      <label for="search-date">Date:</label>
+      <input type="date" id="search-date">
+    </div>
+    <div>
+      <label for="search-version">Version:</label>
+      <select id="search-version"><option value="">All</option></select>
+    </div>
+    <div>
+      <label for="search-text">Keyword:</label>
+      <input type="text" id="search-text" placeholder="Search description or version">
+    </div>
+  </div>
+
+  <div id="changelogs" class="changelog-grid"></div>
+
+  <div class="pagination-buttons">
+    <button id="prev" class="btn secondary">Previous</button>
+    <button id="next" class="btn secondary">Next</button>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Updater Bot. All Rights Reserved.</p>
+  <div class="footer-links">
+    <a href="tos.html">Terms of Service</a>
+    <a href="privacy.html">Privacy Policy</a>
+  </div>
+</footer>
+
+<script>
+const logsPerPage = 3;
+let currentPage = 1;
+let changelogs = [];
+
+async function loadChangelogs() {
+  const res = await fetch('changelogs.json');
+  changelogs = await res.json();
+  changelogs.sort((a,b)=>new Date(b.date)-new Date(a.date));
+  populateVersionDropdown();
+  displayLogs();
+}
+
+function populateVersionDropdown() {
+  const versionSelect = document.getElementById('search-version');
+  const versions = [...new Set(changelogs.map(log => log.version))];
+  versions.forEach(v => {
+    const opt = document.createElement('option');
+    opt.value = v;
+    opt.textContent = v;
+    versionSelect.appendChild(opt);
+  });
+}
+
+function displayLogs(dateFilter, textFilter, versionFilter){
+  const container = document.getElementById('changelogs');
+  container.innerHTML='';
+  let filtered = changelogs;
+  if(dateFilter) filtered = filtered.filter(l=>l.date===dateFilter);
+  if(textFilter){
+    const t=textFilter.toLowerCase();
+    filtered = filtered.filter(l=>l.version.toLowerCase().includes(t)||l.description.toLowerCase().includes(t));
+  }
+  if(versionFilter) filtered = filtered.filter(l=>l.version===versionFilter);
+
+  const start = (currentPage-1)*logsPerPage;
+  const end = start+logsPerPage;
+  const pageLogs = filtered.slice(start,end);
+  if(pageLogs.length===0){ container.innerHTML='<p>No changelogs found.</p>'; return; }
+
+  pageLogs.forEach(l=>{
+    const div=document.createElement('div');
+    div.classList.add('changelog-card');
+    div.innerHTML=`
+      <h3>${l.version} — ${l.date}</h3>
+      <p>${l.description}</p>
+      ${l.images?l.images.map(i=>`<img src="${i}" alt="Screenshot" style="max-width:200px;margin-top:5px;">`).join(''):''}
+    `;
+    container.appendChild(div);
+  });
+}
+
+// Pagination buttons
+document.getElementById('prev').onclick=()=>{if(currentPage>1){currentPage--;updateDisplay();}};
+document.getElementById('next').onclick=()=>{currentPage++;updateDisplay();};
+
+// Filters
+document.getElementById('search-date').onchange=()=>{currentPage=1;updateDisplay();};
+document.getElementById('search-version').onchange=()=>{currentPage=1;updateDisplay();};
+document.getElementById('search-text').oninput=()=>{currentPage=1;updateDisplay();};
+
+function updateDisplay(){
+  displayLogs(
+    document.getElementById('search-date').value,
+    document.getElementById('search-text').value,
+    document.getElementById('search-version').value
+  );
+}
+
+loadChangelogs();
+</script>
+</body>
+</html>
