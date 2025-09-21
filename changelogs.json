@@ -1,0 +1,26 @@
+[
+  {
+    "version": "v2.3.0",
+    "date": "2025-09-17",
+    "description": "Optimized database handling and update checking logic for faster response times and better error handling on fetch failures.",
+    "images": []
+  },
+  {
+    "version": "v2.2.0",
+    "date": "2025-09-17",
+    "description": "Fixed Steam news embeds to properly display URLs, maintain line breaks, and cleanly format HTML links while showing images correctly.",
+    "images": []
+  },
+  {
+    "version": "v2.1.0",
+    "date": "2025-09-17",
+    "description": "Introduced the new /subscribe command allowing users to easily subscribe a channel to game updates directly through Discord slash commands.",
+    "images": []
+  },
+  {
+    "version": "v2.0.0",
+    "date": "2025-09-17",
+    "description": "Added support for tracking multiple Steam games simultaneously. Servers can now subscribe to updates for several games at once.",
+    "images": []
+  }
+]
