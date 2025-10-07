@@ -6,17 +6,14 @@
 <title>404 - Page Not Found</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  body {
-    transition: all 0.3s ease;
-  }
-
+  /* Easter Egg Extras */
   .secret {
     display: none;
     text-align: center;
-    color: #ff4747;
+    color: #ffcc00;
     font-size: 1.2rem;
     margin-top: 20px;
-    font-weight: bold;
+    font-weight: 600;
     animation: fadeIn 0.6s ease-in-out;
   }
 
@@ -26,35 +23,47 @@
   }
 
   @keyframes shake {
-    0% { transform: translate(2px, 1px) rotate(0deg); }
-    10% { transform: translate(-1px, -2px) rotate(-1deg); }
-    20% { transform: translate(-3px, 0px) rotate(1deg); }
-    30% { transform: translate(3px, 2px) rotate(0deg); }
-    40% { transform: translate(1px, -1px) rotate(1deg); }
-    50% { transform: translate(-1px, 2px) rotate(-1deg); }
-    60% { transform: translate(-3px, 1px) rotate(0deg); }
-    70% { transform: translate(3px, 1px) rotate(-1deg); }
-    80% { transform: translate(-1px, -1px) rotate(1deg); }
-    90% { transform: translate(1px, 2px) rotate(0deg); }
-    100% { transform: translate(1px, -2px) rotate(-1deg); }
+    0%, 100% { transform: translate(0, 0); }
+    20% { transform: translate(-5px, 0); }
+    40% { transform: translate(5px, 0); }
+    60% { transform: translate(-5px, 0); }
+    80% { transform: translate(5px, 0); }
   }
 
   .shake {
     animation: shake 0.5s;
-    animation-iteration-count: 4;
+    animation-iteration-count: 2;
   }
 
-  .badge {
+  /* Notification (badge) styling */
+  .notification {
     display: none;
-    margin: 40px auto 0;
-    width: fit-content;
-    background: linear-gradient(135deg, #ff4747, #ffb347);
-    color: white;
-    padding: 10px 20px;
-    border-radius: 12px;
-    font-weight: bold;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    animation: fadeIn 1s ease-in-out;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #1a1a1d;
+    border-left: 5px solid #ffcc00;
+    color: #fff;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    font-weight: 500;
+    animation: fadeIn 0.5s ease-in-out;
+    z-index: 9999;
+  }
+
+  .notification .close-btn {
+    background: none;
+    border: none;
+    color: #ffcc00;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-left: 1rem;
+    transition: color 0.2s;
+  }
+
+  .notification .close-btn:hover {
+    color: #fff;
   }
 </style>
 </head>
@@ -73,13 +82,20 @@
     <a href="tos.html">Terms of Service</a>
     <a href="privacy.html">Privacy Policy</a>
   </div>
-  <div class="badge" id="badge">🏆 Secret Finder Badge</div>
 </footer>
+
+<!-- Notification (Badge Popup) -->
+<div class="notification" id="badge">
+  🏆 <strong>Secret Finder Badge</strong> — You actually found it!
+  <button class="close-btn" id="closeBadge">✖</button>
+</div>
 
 <script>
   const logo = document.getElementById("logo");
   const secret = document.getElementById("secret");
   const badge = document.getElementById("badge");
+  const closeBadge = document.getElementById("closeBadge");
+
   let clickCount = 0;
   let foundSecret = false;
 
@@ -98,19 +114,33 @@
 
       setTimeout(() => {
         document.body.classList.remove("shake");
-      }, 2000);
+      }, 1500);
     }
 
     if (clickCount === 10 && !foundSecret) {
       foundSecret = true;
       document.body.classList.add("shake");
       secret.textContent = "😤 Fine! You found the secret. Happy now?";
-      badge.style.display = "block";
+
+      // Show badge notification
+      badge.style.display = "flex";
+      badge.style.alignItems = "center";
+      badge.style.justifyContent = "space-between";
+
+      // Auto-hide after 10 seconds
+      setTimeout(() => {
+        badge.style.display = "none";
+      }, 10000);
 
       setTimeout(() => {
         document.body.classList.remove("shake");
       }, 2500);
     }
+  });
+
+  // Manual close for badge
+  closeBadge.addEventListener("click", () => {
+    badge.style.display = "none";
   });
 </script>
 </body>
