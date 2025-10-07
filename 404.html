@@ -5,13 +5,53 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>404 - Page Not Found</title>
 <link rel="stylesheet" href="style.css">
+<style>
+  body {
+    transition: all 0.3s ease;
+  }
+
+  .secret {
+    display: none;
+    text-align: center;
+    color: #ff4747;
+    font-size: 1.2rem;
+    margin-top: 20px;
+    font-weight: bold;
+    animation: fadeIn 0.6s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+
+  @keyframes shake {
+    0% { transform: translate(2px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }
+
+  .shake {
+    animation: shake 0.5s;
+    animation-iteration-count: 4;
+  }
+</style>
 </head>
 <body>
 <header class="hero">
-  <img src="assets/logo.png" alt="Updater Bot Logo" class="logo circle">
+  <img src="assets/logo.png" alt="Updater Bot Logo" class="logo circle" id="logo">
   <h1>404 - Page Not Found</h1>
   <p class="tagline">Oops! The page you’re looking for doesn’t exist.</p>
   <a href="index.html" class="btn primary">Go Back Home</a>
+  <p class="secret" id="secret">🤖 Stop poking me! I’m just a logo!</p>
 </header>
 
 <footer>
@@ -21,5 +61,27 @@
     <a href="privacy.html">Privacy Policy</a>
   </div>
 </footer>
+
+<script>
+  const logo = document.getElementById("logo");
+  const secret = document.getElementById("secret");
+  let clickCount = 0;
+
+  logo.addEventListener("click", () => {
+    clickCount++;
+
+    if (clickCount === 3) {
+      secret.style.display = "block";
+      secret.textContent = "😳 Uh... why are you clicking me?";
+    } else if (clickCount === 5) {
+      document.body.classList.add("shake");
+      secret.textContent = "🤖 Stop poking me! I’m just a logo!";
+      setTimeout(() => {
+        document.body.classList.remove("shake");
+        secret.textContent = "Fine! You found the secret. Happy now? 😤";
+      }, 3000);
+    }
+  });
+</script>
 </body>
 </html>
