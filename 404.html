@@ -43,6 +43,19 @@
     animation: shake 0.5s;
     animation-iteration-count: 4;
   }
+
+  .badge {
+    display: none;
+    margin: 40px auto 0;
+    width: fit-content;
+    background: linear-gradient(135deg, #ff4747, #ffb347);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    animation: fadeIn 1s ease-in-out;
+  }
 </style>
 </head>
 <body>
@@ -51,7 +64,7 @@
   <h1>404 - Page Not Found</h1>
   <p class="tagline">Oops! The page you’re looking for doesn’t exist.</p>
   <a href="index.html" class="btn primary">Go Back Home</a>
-  <p class="secret" id="secret">🤖 Stop poking me! I’m just a logo!</p>
+  <p class="secret" id="secret"></p>
 </header>
 
 <footer>
@@ -60,26 +73,43 @@
     <a href="tos.html">Terms of Service</a>
     <a href="privacy.html">Privacy Policy</a>
   </div>
+  <div class="badge" id="badge">🏆 Secret Finder Badge</div>
 </footer>
 
 <script>
   const logo = document.getElementById("logo");
   const secret = document.getElementById("secret");
+  const badge = document.getElementById("badge");
   let clickCount = 0;
+  let foundSecret = false;
 
   logo.addEventListener("click", () => {
     clickCount++;
 
-    if (clickCount === 3) {
+    if (clickCount === 3 && !foundSecret) {
       secret.style.display = "block";
-      secret.textContent = "😳 Uh... why are you clicking me?";
-    } else if (clickCount === 5) {
-      document.body.classList.add("shake");
+      secret.textContent = "🧐 Why are you clicking me?";
+    }
+
+    if (clickCount === 5 && !foundSecret) {
+      secret.style.display = "block";
       secret.textContent = "🤖 Stop poking me! I’m just a logo!";
+      document.body.classList.add("shake");
+
       setTimeout(() => {
         document.body.classList.remove("shake");
-        secret.textContent = "Fine! You found the secret. Happy now? 😤";
-      }, 3000);
+      }, 2000);
+    }
+
+    if (clickCount === 10 && !foundSecret) {
+      foundSecret = true;
+      document.body.classList.add("shake");
+      secret.textContent = "😤 Fine! You found the secret. Happy now?";
+      badge.style.display = "block";
+
+      setTimeout(() => {
+        document.body.classList.remove("shake");
+      }, 2500);
     }
   });
 </script>
