@@ -6,6 +6,16 @@
 <title>404 - Page Not Found</title>
 <link rel="stylesheet" href="style.css">
 <style>
+  /* Make tagline clearly clickable */
+  #tagline {
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+
+  #tagline:hover {
+    color: #ffcc00;
+  }
+
   /* Notification Badge */
   .badge {
     position: fixed;
@@ -90,12 +100,12 @@
         showBadge();
         break;
       default:
-        // after 20 clicks, it won't change anymore
         break;
     }
   });
 
   function showBadge() {
+    badge.textContent = "🏆 You broke the 404 page!";
     badge.classList.add('show');
     setTimeout(() => {
       badge.classList.remove('show');
