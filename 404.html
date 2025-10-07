@@ -6,74 +6,36 @@
 <title>404 - Page Not Found</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  /* Easter Egg Extras */
-  .secret {
-    display: none;
-    text-align: center;
-    color: #ffcc00;
-    font-size: 1.2rem;
-    margin-top: 20px;
-    font-weight: 600;
-    animation: fadeIn 0.6s ease-in-out;
-  }
-
-  @keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
-  }
-
-  @keyframes shake {
-    0%, 100% { transform: translate(0, 0); }
-    20% { transform: translate(-5px, 0); }
-    40% { transform: translate(5px, 0); }
-    60% { transform: translate(-5px, 0); }
-    80% { transform: translate(5px, 0); }
-  }
-
-  .shake {
-    animation: shake 0.5s;
-    animation-iteration-count: 2;
-  }
-
-  /* Notification (badge) styling */
-  .notification {
-    display: none;
+  /* Notification Badge */
+  .badge {
     position: fixed;
     bottom: 30px;
     right: 30px;
     background: #1a1a1d;
-    border-left: 5px solid #ffcc00;
+    border-left: 4px solid #ffcc00;
     color: #fff;
     padding: 1rem 1.5rem;
-    border-radius: 10px;
+    border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    font-weight: 500;
-    animation: fadeIn 0.5s ease-in-out;
+    font-weight: 600;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
     z-index: 9999;
   }
 
-  .notification .close-btn {
-    background: none;
-    border: none;
-    color: #ffcc00;
-    font-size: 1.2rem;
-    cursor: pointer;
-    margin-left: 1rem;
-    transition: color 0.2s;
-  }
-
-  .notification .close-btn:hover {
-    color: #fff;
+  .badge.show {
+    opacity: 1;
+    transform: translateY(0);
   }
 </style>
 </head>
 <body>
 <header class="hero">
-  <img src="assets/logo.png" alt="Updater Bot Logo" class="logo circle" id="logo">
+  <img src="assets/logo.png" alt="Updater Bot Logo" class="logo circle">
   <h1>404 - Page Not Found</h1>
-  <p class="tagline">Oops! The page you’re looking for doesn’t exist.</p>
+  <p class="tagline" id="tagline">Oops! The page you’re looking for doesn’t exist.</p>
   <a href="index.html" class="btn primary">Go Back Home</a>
-  <p class="secret" id="secret"></p>
 </header>
 
 <footer>
@@ -84,64 +46,61 @@
   </div>
 </footer>
 
-<!-- Notification (Badge Popup) -->
-<div class="notification" id="badge">
-  🏆 <strong>Secret Finder Badge</strong> — You actually found it!
-  <button class="close-btn" id="closeBadge">✖</button>
-</div>
+<!-- Notification Badge -->
+<div class="badge" id="badge">🏅 Secret Found!</div>
 
 <script>
-  const logo = document.getElementById("logo");
-  const secret = document.getElementById("secret");
-  const badge = document.getElementById("badge");
-  const closeBadge = document.getElementById("closeBadge");
-
   let clickCount = 0;
-  let foundSecret = false;
+  const tagline = document.getElementById('tagline');
+  const badge = document.getElementById('badge');
 
-  logo.addEventListener("click", () => {
+  tagline.addEventListener('click', () => {
     clickCount++;
 
-    if (clickCount === 3 && !foundSecret) {
-      secret.style.display = "block";
-      secret.textContent = "🧐 Why are you clicking me?";
-    }
-
-    if (clickCount === 5 && !foundSecret) {
-      secret.style.display = "block";
-      secret.textContent = "🤖 Stop poking me! I’m just a logo!";
-      document.body.classList.add("shake");
-
-      setTimeout(() => {
-        document.body.classList.remove("shake");
-      }, 1500);
-    }
-
-    if (clickCount === 10 && !foundSecret) {
-      foundSecret = true;
-      document.body.classList.add("shake");
-      secret.textContent = "😤 Fine! You found the secret. Happy now?";
-
-      // Show badge notification
-      badge.style.display = "flex";
-      badge.style.alignItems = "center";
-      badge.style.justifyContent = "space-between";
-
-      // Auto-hide after 10 seconds
-      setTimeout(() => {
-        badge.style.display = "none";
-      }, 10000);
-
-      setTimeout(() => {
-        document.body.classList.remove("shake");
-      }, 2500);
+    switch (clickCount) {
+      case 3:
+        tagline.textContent = "Wait... what are you doing?";
+        break;
+      case 5:
+        tagline.textContent = "What? 🤨";
+        break;
+      case 7:
+        tagline.textContent = "WHAT?! 😠";
+        break;
+      case 9:
+        tagline.textContent = "WHY ARE YOU STILL CLICKING ME?! 😡";
+        break;
+      case 11:
+        tagline.textContent = "There’s literally nothing here...";
+        break;
+      case 13:
+        tagline.textContent = "Seriously, go back home or something 🏠";
+        break;
+      case 15:
+        tagline.textContent = "Are you trying to hack me or what? 💻";
+        break;
+      case 17:
+        tagline.textContent = "Dude... stop. I’m not hiding anything 😤";
+        break;
+      case 19:
+        tagline.textContent = "Okay fine, you’re persistent.";
+        break;
+      case 20:
+        tagline.textContent = "Fine! You found the secret. Happy now? 😤";
+        showBadge();
+        break;
+      default:
+        // after 20 clicks, it won't change anymore
+        break;
     }
   });
 
-  // Manual close for badge
-  closeBadge.addEventListener("click", () => {
-    badge.style.display = "none";
-  });
+  function showBadge() {
+    badge.classList.add('show');
+    setTimeout(() => {
+      badge.classList.remove('show');
+    }, 10000); // stays visible for 10 seconds
+  }
 </script>
 </body>
 </html>
